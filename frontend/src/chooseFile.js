@@ -8,6 +8,9 @@ export default function File(props) {
   let [count,setCount] = React.useState(props.count);
 
     let handleInput = (event) => {
+      if(count === props.count){
+        return;
+      }
     
       setCount(count-1);
   
