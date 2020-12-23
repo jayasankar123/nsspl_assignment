@@ -3,32 +3,32 @@ import './App.css';
 import React from "react";
 import axios from 'axios';
 
-let length = 0;
+let fileObj = 0;
 export default function File(props) {
-  let [count,setCount] = React.useState(props.count);
+  let [input,setInput] = React.useState("");
+    
 
     let handleInput = (event) => {
-      if(count === props.count){
-        return;
+      const reader = new FileReader();
+      reader.onload= ()=>{
+        if(reader.readyState === 2){
+          setInput(reader.result);
+        }
       }
-    
-      setCount(count-1);
-  
-      
-      let obj = {imagePath:event.target.value,imgID:count};
-      axios.post(`http://localhost:8080/`,obj)
-        .then(res => {  
-          console.log(res);
-      });
+      fileObj = event.target.files[0];
+      console.log(fileObj);
+      reader.readAsDataURL(event.target.files[0]);
+      props.updateArr(props.keyValue,fileObj.name);
     };
   
 
 
 
   return (
-      <div>
-    <label>You can choose {count} images</label><br/>
-    <input type="file" accept="image/*" onInput={(event) => handleInput(event)}/>
+      <div className="image-ctr">
+      <input type="file" accept="image/*" onChange={(event) => handleInput(event)}/>
+      {/* {<button onClick={(event) => handleClick(event)}>SUBMIT</button>} */}
+      {input && <img src={input}></img>}
     </div>
   );
 }

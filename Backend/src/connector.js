@@ -1,7 +1,7 @@
 
 //const mongodb = require('mongodb');
 
-const mongoURI = "mongodb://localhost:27017" + "/nsspl"
+const mongoURI = "mongodb://localhost:27017" + "/image"
 
 let mongoose = require('mongoose');
 const { tallySchema } = require('./schema')
@@ -12,7 +12,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => {
         console.log("error while connection", err)
     });
-collection_connection = mongoose.model('images', tallySchema)
+collection_connection = mongoose.model('image', tallySchema)
 
 
 exports.connection = collection_connection;
